@@ -7,12 +7,30 @@ describe 'when user visits book show page' do
 
     visit book_path(book)
 
-    within ".book" do
-      expect(page).to have_content(book.title)
-    end
+    expect(page).to have_content(book.title)
   end
 
   scenario 'it sees list of book reviews' do
+    title = 'Fight Club'
+    name = 'Justine Troyke'
+    name_2 = 'Tyler Durden'
+    words = 'Awesome Sauce'
+    words_2 = 'I do not want to talk about it'
+    rating = 5
+    user = User.create!(name: name)
+    user_2 = User.create!(name: name_2)
+    book = Book.create!(title: title)
+    review = book.reviews.create!(words: words, rating: rating)
+    review_2 = book.reviews.create!(words: words_2, rating: rating)
+
+    visit book_path(book)
+
+    expect(page).to have_content(book.review.words)
+    expect(page).to have_content(book.review_2.words_2)
+    expect(page).to have_content(user.name)
+    expect(page).to have_content(user.name_2)
+    expect(page).to have_content(book.review.rating)
+    expect(page).to have_content(book.review_2.rating_2)
   end
 end
 
