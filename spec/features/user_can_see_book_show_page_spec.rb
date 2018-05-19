@@ -7,11 +7,13 @@ describe 'when user visits book show page' do
 
     visit book_path(book)
 
-    expect(page).to have_content(book.title)
+    within ".book" do
+      expect(page).to have_content(book.title)
+    end
   end
 
   scenario 'it sees list of book reviews' do
-  end 
+  end
 end
 
 # As a User,
